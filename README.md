@@ -1,6 +1,6 @@
 # Mr Wright's Rules
 
-Some development and testing principles for software developers, honed over 40 years of professional practice. This repo holds a static site rendering the rules — the original prose lives in the [GitHub wiki](https://github.com/magicobject/MrWrightsRules/wiki); this is a proper, readable, linkable home for it. Same lightweight build pipeline as [wrightmaths.uk](https://github.com/magicobject/WrightMaths), [kington-parishes](https://github.com/magicobject/kington-parishes) and the other MediaWright sites — see their READMEs for the full explanation; the short version is below.
+Some development and testing principles for software developers, honed over 40 years of professional practice. This site started life as a rebuild of the [GitHub wiki](https://github.com/magicobject/MrWrightsRules/wiki) — the wiki has since been retired (its pages deleted) now that this site is easier to read and is where rules actually get added going forward; `src/pages/*.html` is the sole source of truth. Same lightweight build pipeline as [wrightmaths.uk](https://github.com/magicobject/WrightMaths), [kington-parishes](https://github.com/magicobject/kington-parishes) and the other MediaWright sites — see their READMEs for the full explanation; the short version is below.
 
 ## Quick start
 
@@ -18,7 +18,7 @@ Ten real pages (`index`, `rules`, and the eight `rule-N-*` detail pages) plus `4
 1. **[templates/header.html](templates/header.html)**, **[templates/footer.html](templates/footer.html)**, **[templates/page.html](templates/page.html)** — the shared page shell (nav, footer, `<head>`) with `{{PLACEHOLDER}}` tokens. The 404 page opts out of the header (it isn't a nav destination) but keeps the footer, so the build number and mediawright credit still show there.
 2. **[src/pages/\*.html](src/pages)** — just the content unique to each page. No `<head>`, no header, no footer — the build script wraps that around it.
 3. **[src/pages.config.mjs](src/pages.config.mjs)** — the nav (including the external GitHub link) and each page's `<title>`/meta description/robots behaviour.
-4. **[src/site.config.mjs](src/site.config.mjs)** — the GitHub repo/issues/wiki links and the mediawright.uk credit, substituted in as `{{TOKEN}}`s wherever they appear.
+4. **[src/site.config.mjs](src/site.config.mjs)** — the GitHub repo/issues links and the mediawright.uk credit, substituted in as `{{TOKEN}}`s wherever they appear.
 
 Running `npm run build` reads all four and writes the finished files into `public/`, which is what Cloudflare actually serves (`wrangler.jsonc` points `assets.directory` at `./public`).
 
@@ -29,7 +29,7 @@ Running `npm run build` reads all four and writes the finished files into `publi
 | A rule's wording | `src/pages/rule-N-*.html` | `public/rule-N-*.html` |
 | Nav links, page title/description | `src/pages.config.mjs` | `public/<page>.html` |
 | Header/footer, shared `<head>` | `templates/*.html` | `public/<page>.html` |
-| GitHub/wiki links, mediawright credit | `src/site.config.mjs` | Any hard-coded string in `src/pages/` or `templates/` |
+| GitHub links, mediawright credit | `src/site.config.mjs` | Any hard-coded string in `src/pages/` or `templates/` |
 | Styling | `public/css/style.css` (this one genuinely lives in `public/` — it isn't generated) | — |
 | The reveal-on-scroll script | `public/js/main.js` (also not generated) | — |
 
@@ -37,7 +37,13 @@ Running `npm run build` reads all four and writes the finished files into `publi
 
 ## Where the content came from, and what changed
 
-The rules originate from the [GitHub wiki](https://github.com/magicobject/MrWrightsRules/wiki), which has a numbering bug worth knowing about: two separate pages both open with `# Rule 4` (the stream-of-subconsciousness page and the security page), and there's a stale, incomplete draft — `Avoid stream of consciousness programming` (note: *consciousness*, not *subconsciousness*) — that was clearly superseded by a cleaned-up rewrite but never deleted from the wiki. This site uses [The-Rules](https://github.com/magicobject/MrWrightsRules/wiki/The-Rules)'s list as the authoritative order and numbers pages accordingly (currently 1–8); the stale draft page was not carried over. Rule 8 (business rule coverage) originates from a standalone article rather than the wiki — see that page for the link.
+Rules 1–7 originate from the GitHub wiki (now deleted — see below), which had a numbering bug worth knowing about: two separate pages both opened with `# Rule 4` (the stream-of-subconsciousness page and the security page), and there was a stale, incomplete draft — `Avoid stream of consciousness programming` (note: *consciousness*, not *subconsciousness*) — clearly superseded by a cleaned-up rewrite but never deleted. This site used the wiki's `The-Rules` page's list as the authoritative order and numbered pages accordingly; the stale draft page was not carried over. Rule 8 (business rule coverage) originates from a standalone article rather than the wiki — see that page for the link.
+
+Every rule added from here on should go straight into `src/pages/rule-N-*.html` — there's no wiki to keep in sync with any more.
+
+## The wiki has been retired
+
+The [GitHub wiki](https://github.com/magicobject/MrWrightsRules/wiki) that this site originally rebuilt has had all of its pages deleted — it was harder to read than this site, and keeping two copies of the same content in sync was pure overhead once this site existed. `src/pages/*.html` is now the only source of truth for the rules; there is nothing left to port over or reconcile.
 
 ## The pre-commit hook and the build number in the footer
 

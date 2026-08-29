@@ -8,7 +8,6 @@ export const SITE = {
   orgName: "Mr Wright's Rules",
   githubUrl: 'https://github.com/magicobject/MrWrightsRules',
   githubIssuesUrl: 'https://github.com/magicobject/MrWrightsRules/issues',
-  wikiUrl: 'https://github.com/magicobject/MrWrightsRules/wiki',
 
   mediawrightHref: 'https://mediawright.uk',
   mediawrightLabel: 'mediawright.uk',
