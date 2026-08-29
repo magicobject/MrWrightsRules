@@ -1,0 +1,74 @@
+<main id="main">
+
+  <div class="page-header">
+    <div class="wrap">
+      <div class="kicker">Rule 3</div>
+      <h1>Code for other people, not just for the solution</h1>
+    </div>
+  </div>
+
+  <section>
+    <div class="wrap">
+      <div class="prose">
+        <p>Most code is write-optimised. The author just wanted to get their story points in the bank, by creating a solution as quickly as possible. They were focusing on the solution. Instead they <em>should</em> have been focusing on the reader.</p>
+
+        <h2>Program with intent</h2>
+        <p>It is perfectly possible to write code that does not do what you intended or does not correctly address an edge case.</p>
+        <ul>
+          <li>Good comments are important — you cannot express intent purely in the code: some external source of intent is needed</li>
+          <li>Be clear about what your code is going to do</li>
+          <li>Say what it is going to do up front</li>
+          <li>Choose good file, class, method, and function names</li>
+          <li>Use DocBlocks everywhere — the descriptions in DocBlocks are excellent containers for intent. Many IDEs create DocBlocks almost for free</li>
+          <li>Write unit tests first — these help to document the intent of your application code</li>
+          <li>Consider and explain edge effects</li>
+        </ul>
+        <p>If you don't program with intent your source files are just a stream of your consciousness. Other developers can't read your mind.</p>
+
+        <h2>More on DocBlocks</h2>
+        <p>DocBlocks are excellent containers for explaining your intent. Use DocBlocks to explain the purpose and context of the source file and the purpose of each class/method along with parameters, return types, exceptions etc.</p>
+        <p>If you are struggling to name something, start with a comment or DocBlock and include a description of what your intent is, then concertina this into a first attempt at a name, then iterate. Take your time: naming things well is an acquired skill. Remember the name has to communicate your intent clearly to the reader.</p>
+        <p>Most IDEs help you to create good DocBlocks with minimal effort.</p>
+
+        <h2>More ways to code for other people</h2>
+        <ol>
+          <li>Prefer functional programming, but use OO</li>
+          <li>Prefer immutability — structures that don't mutate are easier to reason about</li>
+          <li>Pay particular attention to documenting functional solutions; they can be difficult to read if you are new to functional programming</li>
+          <li>Document complex regular expressions — they are often difficult to understand</li>
+          <li>Log everything — but choose the most appropriate level (if in doubt, log), including timing information for API and IO calls</li>
+          <li>When you think you are finished, and all tests pass, then refactor for readability</li>
+          <li>Review your own PRs before asking for feedback</li>
+          <li>Document APIs using OpenAPI/similar</li>
+          <li>Document significant pieces of work (Epic level)</li>
+          <li>Avoid TODOs, but if they are needed, TODOs must be accompanied by a Jira/ADO reference so we capture the technical debt in Jira/ADO</li>
+          <li>Make sure code is lint-clean (i.e. run ESLint)</li>
+          <li>Apply the Scout principle: "Always leave the code base in a better state than you found it."</li>
+        </ol>
+      </div>
+
+      <div class="summary-box">
+        <h2>Summary</h2>
+        <ul>
+          <li>Code is read far more frequently than it is written, so make it easy to read and understand</li>
+          <li>Give some external frame of reference apart from the executable code to explain your intent — never leave another developer thinking "What did the author(s) really intend?"</li>
+          <li>Make sure that non-programmers can understand your code</li>
+          <li>DocBlocks are excellent containers for intent</li>
+          <li>Name things based on what they do, not what they are composed of</li>
+        </ul>
+      </div>
+
+      <nav class="rule-nav" aria-label="Rule navigation">
+        <a href="rule-2-all-code-is-first-class-code.html">
+          <span class="label">&larr; Previous</span>
+          Rule 2: All code is first-class code
+        </a>
+        <a class="next" href="rule-4-avoid-stream-of-subconsciousness-programming.html">
+          <span class="label">Next</span>
+          Rule 4: Avoid stream of subconsciousness programming &rarr;
+        </a>
+      </nav>
+    </div>
+  </section>
+
+</main>
