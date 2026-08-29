@@ -11,13 +11,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Rules — Mr Wright's Rules</title>
-<meta name="description" content="Five rules that condense 40 years of software development experience: no shortcuts, first-class code, coding for other people, avoiding stream-of-subconsciousness programming, and security.">
+<meta name="description" content="Seven rules that condense 40 years of software development experience: no shortcuts, first-class code, coding for other people, avoiding stream-of-subconsciousness programming, security, and testing.">
 <link rel="canonical" href="https://mrwrightsrules.magicobject.workers.dev/rules.html">
 <link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/css/style.css?v=2026.08.29.001">
+<link rel="stylesheet" href="/css/style.css?v=2026.08.29.002">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -38,7 +38,7 @@
   <div class="page-header">
     <div class="wrap">
       <div class="kicker">The rules</div>
-      <h1>Five rules, condensing 40 years of experience</h1>
+      <h1>Seven rules, condensing 40 years of experience</h1>
       <p class="lede">If you click through on a rule you'll find the reasoning behind it, which may not be immediately obvious, followed by a practical summary of how to apply it.</p>
     </div>
   </div>
@@ -86,6 +86,22 @@
           </span>
           <span class="arrow">&rarr;</span>
         </a>
+        <a class="rule-card reveal" href="rule-6-always-test-first.html">
+          <span class="num">06</span>
+          <span>
+            <h3>Always test first</h3>
+            <p>Testing is nearly impossible to reverse-engineer well. Write it first, so it's always in place, protecting your code, your application and your customer.</p>
+          </span>
+          <span class="arrow">&rarr;</span>
+        </a>
+        <a class="rule-card reveal" href="rule-7-test-functionality-not-implementation.html">
+          <span class="num">07</span>
+          <span>
+            <h3>Test functionality, not implementation</h3>
+            <p>Test the contract your code makes with its caller, not its internal mechanics, so the implementation is free to change without ever touching the test suite.</p>
+          </span>
+          <span class="arrow">&rarr;</span>
+        </a>
       </div>
     </div>
   </section>
@@ -112,12 +128,12 @@
     </div>
     <div class="fine">
       <span>&copy; <span id="year"></span> Mr Wright's Rules. Site by <a href="https://mediawright.uk">mediawright.uk</a>.</span>
-      <span class="build-number">Build 2026.08.29.001</span>
+      <span class="build-number">Build 2026.08.29.002</span>
     </div>
   </div>
   <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </footer>
 
-<script src="/js/main.js?v=2026.08.29.001" defer></script>
+<script src="/js/main.js?v=2026.08.29.002" defer></script>
 </body>
 </html>

@@ -1,0 +1,46 @@
+<main id="main">
+
+  <div class="page-header">
+    <div class="wrap">
+      <div class="kicker">Rule 6</div>
+      <h1>Always test first</h1>
+    </div>
+  </div>
+
+  <section>
+    <div class="wrap">
+      <div class="prose">
+        <p>Testing is not something you bolt on once the code is "done" — by then the moment of clearest thinking about the problem has already passed. If you write your tests after your implementation, you are really just describing what the code already does, not what it was actually meant to do. Any gaps in your thinking, any edge cases you didn't consider, get baked into both the code and the tests at the same time, so nothing catches them.</p>
+
+        <p>It is also strikingly difficult to reverse-engineer good tests once the implementation already exists. The temptation is to look at the code and write assertions that make it pass, rather than thinking afresh about what correct behaviour actually looks like. This produces tests that pass by construction rather than tests that would fail if the logic were wrong — tests that give you false confidence.</p>
+
+        <p>Writing tests first inverts this. Before a line of implementation exists, you are forced to think clearly about intent: what should this do, what are the edge cases, what does failure look like. That thinking happens once, encoded as a test, and from that point on it is always in place — guarding your code, your application, and ultimately your customer, every single time the code changes in future, not just on the day it was written.</p>
+
+        <p>This isn't just a coding discipline. Thinking about testing first should start at the design stage, before any code is written — as part of specifying acceptance criteria for a story, or thinking through a technical design. By the time you sit down to code you should already know how you are going to prove it works.</p>
+      </div>
+
+      <div class="summary-box">
+        <h2>Summary</h2>
+        <ul>
+          <li>Write tests before the implementation, not after — the moment of clearest thinking about a problem is before you've solved it, not after</li>
+          <li>Tests written after the fact tend to describe what the code does, not what it should do, so they miss the same edge cases the code does</li>
+          <li>Tests are difficult, often impossible, to reverse-engineer well once the implementation exists — you end up making tests pass, not proving correctness</li>
+          <li>A test written first stays in place forever, continuing to protect your code, your application and your customer against every future change</li>
+          <li>Think about testing at the design stage, not just at implementation time</li>
+        </ul>
+      </div>
+
+      <nav class="rule-nav" aria-label="Rule navigation">
+        <a href="rule-5-security-is-your-responsibility.html">
+          <span class="label">&larr; Previous</span>
+          Rule 5: Security is your responsibility
+        </a>
+        <a class="next" href="rule-7-test-functionality-not-implementation.html">
+          <span class="label">Next</span>
+          Rule 7: Test functionality, not implementation &rarr;
+        </a>
+      </nav>
+    </div>
+  </section>
+
+</main>

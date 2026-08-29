@@ -1,11 +1,11 @@
 import { test, expect } from '@playwright/test';
 import { RULE_SLUGS } from './support/pages';
 
-test('rules.html lists all five rules in order, each linking to its own page', async ({ page }) => {
+test('rules.html lists all rules in order, each linking to its own page', async ({ page }) => {
   await page.goto('/rules.html');
 
   const cards = page.locator('.rule-card');
-  await expect(cards).toHaveCount(5);
+  await expect(cards).toHaveCount(RULE_SLUGS.length);
 
   for (let i = 0; i < RULE_SLUGS.length; i++) {
     await expect(cards.nth(i)).toHaveAttribute('href', `${RULE_SLUGS[i]}.html`);
@@ -35,11 +35,11 @@ test('rule pages chain to each other in the correct prev/next order', async ({ p
   }
 });
 
-test('the homepage teases all five rules, in the same order as rules.html', async ({ page }) => {
+test('the homepage teases all rules, in the same order as rules.html', async ({ page }) => {
   await page.goto('/index.html');
 
   const cards = page.locator('.rule-card');
-  await expect(cards).toHaveCount(5);
+  await expect(cards).toHaveCount(RULE_SLUGS.length);
   for (let i = 0; i < RULE_SLUGS.length; i++) {
     await expect(cards.nth(i)).toHaveAttribute('href', `${RULE_SLUGS[i]}.html`);
   }

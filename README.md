@@ -13,7 +13,7 @@ npm test          # run the Playwright suite
 
 ## How the build works
 
-Seven real pages (`index`, `rules`, and the five `rule-N-*` detail pages) plus `404` are assembled from four pieces by [scripts/build.mjs](scripts/build.mjs):
+Nine real pages (`index`, `rules`, and the seven `rule-N-*` detail pages) plus `404` are assembled from four pieces by [scripts/build.mjs](scripts/build.mjs):
 
 1. **[templates/header.html](templates/header.html)**, **[templates/footer.html](templates/footer.html)**, **[templates/page.html](templates/page.html)** — the shared page shell (nav, footer, `<head>`) with `{{PLACEHOLDER}}` tokens. The 404 page opts out of the header (it isn't a nav destination) but keeps the footer, so the build number and mediawright credit still show there.
 2. **[src/pages/\*.html](src/pages)** — just the content unique to each page. No `<head>`, no header, no footer — the build script wraps that around it.
@@ -37,7 +37,7 @@ Running `npm run build` reads all four and writes the finished files into `publi
 
 ## Where the content came from, and what changed
 
-The rules originate from the [GitHub wiki](https://github.com/magicobject/MrWrightsRules/wiki), which has a numbering bug worth knowing about: two separate pages both open with `# Rule 4` (the stream-of-subconsciousness page and the security page), and there's a stale, incomplete draft — `Avoid stream of consciousness programming` (note: *consciousness*, not *subconsciousness*) — that was clearly superseded by a cleaned-up rewrite but never deleted from the wiki. This site uses [The-Rules](https://github.com/magicobject/MrWrightsRules/wiki/The-Rules)'s five-item list as the authoritative order and numbers pages 1–5 accordingly; the stale draft page was not carried over.
+The rules originate from the [GitHub wiki](https://github.com/magicobject/MrWrightsRules/wiki), which has a numbering bug worth knowing about: two separate pages both open with `# Rule 4` (the stream-of-subconsciousness page and the security page), and there's a stale, incomplete draft — `Avoid stream of consciousness programming` (note: *consciousness*, not *subconsciousness*) — that was clearly superseded by a cleaned-up rewrite but never deleted from the wiki. This site uses [The-Rules](https://github.com/magicobject/MrWrightsRules/wiki/The-Rules)'s list as the authoritative order and numbers pages accordingly (currently 1–7); the stale draft page was not carried over.
 
 ## The pre-commit hook and the build number in the footer
 
@@ -55,7 +55,7 @@ In other words: **you never bump the build number or rebuild `public/` yourself*
 
 [Playwright](https://playwright.dev) specs in `test/` cover:
 
-- **[rules-content.spec.ts](test/rules-content.spec.ts)** — the rules list and homepage tease all five rules in the correct order, every rule page has a visible summary, and the prev/next chain between rule pages is correct in both directions.
+- **[rules-content.spec.ts](test/rules-content.spec.ts)** — the rules list and homepage tease all seven rules in the correct order, every rule page has a visible summary, and the prev/next chain between rule pages is correct in both directions.
 - **[nav.spec.ts](test/nav.spec.ts)** — nav highlighting, and the external GitHub link opens in a new tab from every page.
 - **[footer.spec.ts](test/footer.spec.ts)** — every page (404 included) shows a correctly-formatted build number and the mediawright.uk credit.
 - **[page-content.spec.ts](test/page-content.spec.ts)** — each page shows its own title/heading/canonical URL, not another page's.
