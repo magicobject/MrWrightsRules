@@ -1,0 +1,40 @@
+<main id="main">
+
+  <div class="page-header">
+    <div class="wrap">
+      <div class="kicker">In the AI era</div>
+      <h1>Applying these rules when AI writes most of the code</h1>
+      <p class="lede">These rules don't get less true because a model wrote the code instead of a person. They're sound engineering principles, and sound engineering principles don't have an expiry date. But AI does change where each rule actually bites — this page is about that redistribution, not a rewrite of the rules themselves.</p>
+    </div>
+  </div>
+
+  <section>
+    <div class="wrap">
+      <div class="prose">
+        <h2>Rules 6, 7 and 8 become the mechanism of control</h2>
+        <p>When a human wrote every line, "I understand this because I wrote it" was your safety net. That net doesn't exist with AI-generated code — you didn't write it, and rereading it carefully is a poor substitute for having actually reasoned through it as you typed. What replaces that net is the test suite: <a href="rule-6-always-test-first.html">write it first</a>, make sure it tests <a href="rule-7-test-functionality-not-implementation.html">functionality, not implementation</a>, and aim for <a href="rule-8-business-rule-coverage.html">100% business-rule coverage</a>. Do that, and the tests become the actual interface you're programming against — the AI becomes an implementation detail underneath them, free to be regenerated, refactored or replaced without you needing to re-earn trust in it from scratch each time.</p>
+
+        <p>This isn't a new idea forced onto an old rule set. It's TDD and BDD taken to their logical conclusion, now that there's a good reason to actually follow through on them every time rather than treating them as aspirational.</p>
+
+        <h2>Rules 1&ndash;4 shift from the code to the prompt and the review</h2>
+        <p>A vague, stream-of-consciousness prompt produces exactly the failure mode <a href="rule-4-avoid-stream-of-subconsciousness-programming.html">Rule 4</a> describes — poured out with no prior consideration of intent, boundary conditions unhandled, failure modes unconsidered. Except now there's no developer's subconscious to interrogate afterwards when it goes wrong, just an opaque model that can't tell you what it "meant," because it didn't mean anything. <a href="rule-3-code-for-other-people.html">Programming with intent</a> now has to happen mostly before you talk to the AI, in the prompt and the spec, and after, in the review — there is no "during" you're party to any more.</p>
+
+        <p><a href="rule-1-there-are-no-shortcuts.html">There are no shortcuts</a> hits differently too. AI makes it strikingly easy to generate a large volume of shortcut-laden code, fast, that "just works" on the happy path — the exact prototype-to-production trap Rule 1 describes, just compressed from weeks to minutes.</p>
+
+        <h2>Reviewer fatigue from fluency</h2>
+        <p>AI output reads as confident and clean even when it's wrong. <a href="rule-2-all-code-is-first-class-code.html">Rule 2</a> was written assuming sloppy code looks sloppy — that a reader gets a visible cue to slow down and look closer. That assumption breaks with AI: fluent, well-formatted, plausible-looking code invites a skim-and-approve instinct exactly when it needs the opposite. Confident and correct are not the same thing, and AI output is confident by default.</p>
+      </div>
+
+      <div class="summary-box">
+        <h2>Two practical additions</h2>
+        <ul>
+          <li><strong>You own it, even if you didn't type it.</strong> "The AI wrote it" can't become a valid excuse in a postmortem, any more than "the framework did it" or "a contractor wrote it" ever was. This is really an accountability corollary to <a href="rule-5-security-is-your-responsibility.html">Rule 5</a> — it's the rule that stops "AI-assisted" quietly becoming "nobody's fault."</li>
+          <li><strong>Verify AI-asserted facts before you trust them &mdash; especially dependencies.</strong> LLMs hallucinate plausible-sounding package names, API methods and config flags with total confidence. There's already a name for the attack this enables &mdash; <em>slopsquatting</em> &mdash; where bad actors register the hallucinated package name an AI keeps confidently suggesting, banking on someone installing it unchecked. Rule 5 already says to ensure your third-party modules are secure; in the AI era that has to start with ensuring they exist at all, and are the real thing.</li>
+        </ul>
+      </div>
+
+      <p style="margin-top:40px;"><a href="rules.html">&larr; Back to all the rules</a></p>
+    </div>
+  </section>
+
+</main>

@@ -13,7 +13,7 @@ npm test          # run the Playwright suite
 
 ## How the build works
 
-Ten real pages (`index`, `rules`, and the eight `rule-N-*` detail pages) plus `404` are assembled from four pieces by [scripts/build.mjs](scripts/build.mjs):
+Eleven real pages (`index`, `rules`, the eight `rule-N-*` detail pages, and `ai-era`) plus `404` are assembled from four pieces by [scripts/build.mjs](scripts/build.mjs):
 
 1. **[templates/header.html](templates/header.html)**, **[templates/footer.html](templates/footer.html)**, **[templates/page.html](templates/page.html)** — the shared page shell (nav, footer, `<head>`) with `{{PLACEHOLDER}}` tokens. The 404 page opts out of the header (it isn't a nav destination) but keeps the footer, so the build number and mediawright credit still show there.
 2. **[src/pages/\*.html](src/pages)** — just the content unique to each page. No `<head>`, no header, no footer — the build script wraps that around it.
@@ -40,6 +40,8 @@ Running `npm run build` reads all four and writes the finished files into `publi
 Rules 1–7 originate from the GitHub wiki (now deleted — see below), which had a numbering bug worth knowing about: two separate pages both opened with `# Rule 4` (the stream-of-subconsciousness page and the security page), and there was a stale, incomplete draft — `Avoid stream of consciousness programming` (note: *consciousness*, not *subconsciousness*) — clearly superseded by a cleaned-up rewrite but never deleted. This site used the wiki's `The-Rules` page's list as the authoritative order and numbered pages accordingly; the stale draft page was not carried over. Rule 8 (business rule coverage) originates from a standalone article rather than the wiki — see that page for the link.
 
 Every rule added from here on should go straight into `src/pages/rule-N-*.html` — there's no wiki to keep in sync with any more.
+
+`ai-era.html` isn't a numbered rule — it's a standing commentary page (linked from the nav and from the bottom of `rules.html`) on how the eight rules apply when AI is writing most of the code. It doesn't replace or soften any rule; it's about where each one bites differently once the author of the code is a model rather than a person.
 
 ## The wiki has been retired
 

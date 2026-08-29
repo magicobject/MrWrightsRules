@@ -18,6 +18,22 @@ test('clicking "The Rules" opens rules.html and highlights only that item', asyn
   await expect(page.locator('nav.links a[aria-current="page"]')).toHaveText('The Rules');
 });
 
+test('clicking "AI Era" opens ai-era.html and highlights only that item', async ({ page }) => {
+  await page.goto('/');
+
+  await page.locator('nav.links').getByRole('link', { name: 'AI Era', exact: true }).click();
+
+  await expect(page).toHaveURL(/\/ai-era\.html$/);
+  await expect(page.locator('nav.links a[aria-current="page"]')).toHaveText('AI Era');
+});
+
+test('rules.html links through to the AI era guide', async ({ page }) => {
+  await page.goto('/rules.html');
+
+  await page.getByRole('link', { name: 'Read the AI era guide' }).click();
+  await expect(page).toHaveURL(/\/ai-era\.html$/);
+});
+
 test('the brand logo links back to the homepage from every page', async ({ page }) => {
   for (const sitePage of PAGES.filter((p) => p.path !== '/index.html')) {
     await page.goto(sitePage.path);

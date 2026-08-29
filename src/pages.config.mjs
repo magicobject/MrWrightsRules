@@ -6,12 +6,14 @@
 export const NAV = [
   { href: 'index.html', label: 'Home' },
   { href: 'rules.html', label: 'The Rules' },
+  { href: 'ai-era.html', label: 'AI Era' },
   { href: 'https://github.com/magicobject/MrWrightsRules', label: 'GitHub', external: true },
 ];
 
 export const FOOTER_NAV = [
   { href: 'index.html', label: 'Home' },
   { href: 'rules.html', label: 'The Rules' },
+  { href: 'ai-era.html', label: 'AI Era' },
 ];
 
 export const PAGES = [
@@ -83,6 +85,13 @@ export const PAGES = [
     title: 'Rule 8: Test Business Rules and Aim for 100% Coverage',
     description: 'One source of truth for your business rules should drive your tests. 100% business-rule coverage with a green build buys you the confidence to refactor, or even rewrite, with trust that the system still works.',
     active: null,
+    header: true,
+  },
+  {
+    slug: 'ai-era',
+    title: 'Applying These Rules in the Age of AI',
+    description: "These rules don't get less true when AI writes most of the code — but AI redistributes where each one bites. A practical guide to applying them when the author of your code is a model, not a person.",
+    active: 'ai-era.html',
     header: true,
   },
   {
