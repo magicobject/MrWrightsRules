@@ -1,0 +1,62 @@
+<main id="main">
+
+  <div class="page-header">
+    <div class="wrap">
+      <div class="kicker">Rule 8</div>
+      <h1>Test business rules and aim for 100% coverage</h1>
+    </div>
+  </div>
+
+  <section>
+    <div class="wrap">
+      <div class="prose">
+        <p>Where do you keep your business rules? Over the years they turn up everywhere: front-end, back-end, domain objects, a business-rule layer, the database access layer, stored procedures in the database itself. The same rule ends up duplicated, and slightly out of sync, in three or four places at once.</p>
+
+        <p>What if there were one source of truth for your business rules, and that source of truth directly drove your tests? You would only ever have one place to look for what a rule actually is, instead of trawling through every layer trying to work out what's really going on.</p>
+
+        <p>If you had 100% business-rule test coverage and a green build, you would have huge confidence in the functional correctness of your application — enough confidence to refactor freely, or even rewrite the whole thing in a different language, and trust that it was still correct. When a business rule changes, a business analyst updates the rule and its corresponding tests on a branch, which fails the build, because the tests now describe behaviour the application doesn't have yet. A developer then picks that branch up and makes the build green again by implementing the change.</p>
+
+        <p>This works best when business rules are brought into User Story development early, not bolted on afterwards — the same thinking as <a href="rule-6-always-test-first.html">always test first</a>. Business rules can be tested through Feature Specs using Behaviour Driven Development, drawn out as the story itself is developed, with their availability becoming part of the team's Definition of Ready.</p>
+
+        <h2>Making it work in practice</h2>
+        <ul>
+          <li>Tests must be able to run individually and independently, so they can run in parallel. Tag every test with a unique ID and the ID of the business rule(s) it covers, so the test runner can select just one test, or every test covering one rule.</li>
+          <li>Write the business rules into the feature specs as comments. Each rule can have one or more tests, all tagged with that rule's number.</li>
+          <li>Tests must be robust. Flaky tests — often down to poorly handled eventual consistency — undermine the whole point of the exercise.</li>
+          <li>Watch your long-running tests. Log how long each test takes, and split up or optimise the slow ones. If every test could start at once, in a perfectly parallel world, your whole suite would only take as long as its single longest test — so a handful of slow tests can dominate your feedback loop.</li>
+        </ul>
+
+        <h2>This doesn't replace unit tests</h2>
+        <p>Absolutely not. Unit tests stay essential: fast, not coupled to a database or external service, not coupled to the implementation, and focused on behaviour — see <a href="rule-7-test-functionality-not-implementation.html">test functionality, not implementation</a>. Business rule tests sit alongside them as a different, complementary layer: bigger and less iterative than a TDD-style unit test, but sharing the same property of describing desired behaviour rather than implementation detail.</p>
+
+        <p>Business rule tests can run long, and parallelising them isn't cheap — but it's still far cheaper than the cost of manual testing at the same scale, and considerably more precise. Done well, this approach also pulls business analysts, testers and developers into the same conversation early, produces better estimates, and means a green build is something the whole team can trust as a genuine release candidate.</p>
+
+        <p>This rule is expanded on at much greater length in the original article: <a href="https://medium.com/@gregwright_1301/why-is-nobody-talking-about-business-rule-coverage-8e56d23c385d" target="_blank" rel="noopener">Why is Nobody Talking About Business Rule Coverage?</a></p>
+      </div>
+
+      <div class="summary-box">
+        <h2>Summary</h2>
+        <ul>
+          <li>Give your business rules one source of truth, and let that source of truth drive your tests — not scattered copies across every layer of the stack</li>
+          <li>100% business-rule coverage with a green build buys you the confidence to refactor, or even rewrite in a different stack, and trust the system still works</li>
+          <li>Bring business rules into User Story development early, with BDD-style feature specs, so testing is considered from day one — not bolted on afterwards</li>
+          <li>Tag every test with a unique ID and the business rule(s) it covers, so tests can run individually and in parallel</li>
+          <li>Business rule tests complement unit tests, they don't replace them — keep both fast, robust, and decoupled from implementation</li>
+          <li>Watch your test run times and parallelise where it counts — fast feedback is the point, and it still costs less than manual testing at scale</li>
+        </ul>
+      </div>
+
+      <nav class="rule-nav" aria-label="Rule navigation">
+        <a href="rule-7-test-functionality-not-implementation.html">
+          <span class="label">&larr; Previous</span>
+          Rule 7: Test functionality, not implementation
+        </a>
+        <a class="next" href="rules.html">
+          <span class="label">Back to</span>
+          All the rules &rarr;
+        </a>
+      </nav>
+    </div>
+  </section>
+
+</main>

@@ -11,7 +11,7 @@ export interface SitePage {
 
 export const PAGES: SitePage[] = [
   { path: '/index.html', titleContains: "Mr Wright's Rules", heading: /rules for software developers/i },
-  { path: '/rules.html', titleContains: 'The Rules', heading: /seven rules, condensing 40 years/i },
+  { path: '/rules.html', titleContains: 'The Rules', heading: /eight rules, condensing 40 years/i },
   { path: '/rule-1-there-are-no-shortcuts.html', titleContains: 'Rule 1', heading: /there are no shortcuts/i },
   { path: '/rule-2-all-code-is-first-class-code.html', titleContains: 'Rule 2', heading: /all code is first-class code/i },
   { path: '/rule-3-code-for-other-people.html', titleContains: 'Rule 3', heading: /code for other people/i },
@@ -35,6 +35,11 @@ export const PAGES: SitePage[] = [
     titleContains: 'Rule 7',
     heading: /test functionality, not implementation/i,
   },
+  {
+    path: '/rule-8-business-rule-coverage.html',
+    titleContains: 'Rule 8',
+    heading: /test business rules and aim for 100% coverage/i,
+  },
 ];
 
 // The order rule pages should link to each other in, prev/next.
@@ -46,4 +51,5 @@ export const RULE_SLUGS = [
   'rule-5-security-is-your-responsibility',
   'rule-6-always-test-first',
   'rule-7-test-functionality-not-implementation',
+  'rule-8-business-rule-coverage',
 ];

@@ -11,13 +11,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Rules — Mr Wright's Rules</title>
-<meta name="description" content="Seven rules that condense 40 years of software development experience: no shortcuts, first-class code, coding for other people, avoiding stream-of-subconsciousness programming, security, and testing.">
+<meta name="description" content="Eight rules that condense 40 years of software development experience: no shortcuts, first-class code, coding for other people, avoiding stream-of-subconsciousness programming, security, testing, and business rule coverage.">
 <link rel="canonical" href="https://mrwrightsrules.magicobject.workers.dev/rules.html">
 <link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/css/style.css?v=2026.08.29.002">
+<link rel="stylesheet" href="/css/style.css?v=2026.08.29.003">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -38,7 +38,7 @@
   <div class="page-header">
     <div class="wrap">
       <div class="kicker">The rules</div>
-      <h1>Seven rules, condensing 40 years of experience</h1>
+      <h1>Eight rules, condensing 40 years of experience</h1>
       <p class="lede">If you click through on a rule you'll find the reasoning behind it, which may not be immediately obvious, followed by a practical summary of how to apply it.</p>
     </div>
   </div>
@@ -102,6 +102,14 @@
           </span>
           <span class="arrow">&rarr;</span>
         </a>
+        <a class="rule-card reveal" href="rule-8-business-rule-coverage.html">
+          <span class="num">08</span>
+          <span>
+            <h3>Test business rules and aim for 100% coverage</h3>
+            <p>One source of truth for your business rules should drive your tests. 100% coverage with a green build buys you the confidence to refactor, or even rewrite the application, and trust it still works.</p>
+          </span>
+          <span class="arrow">&rarr;</span>
+        </a>
       </div>
     </div>
   </section>
@@ -128,12 +136,12 @@
     </div>
     <div class="fine">
       <span>&copy; <span id="year"></span> Mr Wright's Rules. Site by <a href="https://mediawright.uk">mediawright.uk</a>.</span>
-      <span class="build-number">Build 2026.08.29.002</span>
+      <span class="build-number">Build 2026.08.29.003</span>
     </div>
   </div>
   <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </footer>
 
-<script src="/js/main.js?v=2026.08.29.002" defer></script>
+<script src="/js/main.js?v=2026.08.29.003" defer></script>
 </body>
 </html>

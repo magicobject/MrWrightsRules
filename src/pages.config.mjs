@@ -25,7 +25,7 @@ export const PAGES = [
   {
     slug: 'rules',
     title: "The Rules — Mr Wright's Rules",
-    description: 'Seven rules that condense 40 years of software development experience: no shortcuts, first-class code, coding for other people, avoiding stream-of-subconsciousness programming, security, and testing.',
+    description: 'Eight rules that condense 40 years of software development experience: no shortcuts, first-class code, coding for other people, avoiding stream-of-subconsciousness programming, security, testing, and business rule coverage.',
     active: 'rules.html',
     header: true,
   },
@@ -75,6 +75,13 @@ export const PAGES = [
     slug: 'rule-7-test-functionality-not-implementation',
     title: 'Rule 7: Test Functionality, Not Implementation',
     description: 'Test the contract your code makes with its caller, not its internal mechanics, so the implementation is free to change without ever touching the test suite.',
+    active: null,
+    header: true,
+  },
+  {
+    slug: 'rule-8-business-rule-coverage',
+    title: 'Rule 8: Test Business Rules and Aim for 100% Coverage',
+    description: 'One source of truth for your business rules should drive your tests. 100% business-rule coverage with a green build buys you the confidence to refactor, or even rewrite, with trust that the system still works.',
     active: null,
     header: true,
   },
