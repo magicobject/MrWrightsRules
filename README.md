@@ -74,3 +74,4 @@ In other words: **you never bump the build number or rebuild `public/` yourself*
 ## Deployment
 
 Not yet deployed. Once a Cloudflare Worker is connected to this repo (`wrangler.jsonc`'s `assets.directory` already points at `./public`, ready to go), push to `main` and Cloudflare deploys automatically, same as the other MediaWright sites. The placeholder domain used for canonical URLs, `robots.txt` and `sitemap.xml` is `mrwrightsrules.magicobject.workers.dev` — update all three if a different domain gets used instead.
+<!-- siteadmin pipeline dry run -->
