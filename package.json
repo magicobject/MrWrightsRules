@@ -6,7 +6,8 @@
   "scripts": {
     "prepare": "git config core.hooksPath .githooks",
     "build": "node scripts/build.mjs",
-    "test": "playwright test",
+    "test": "npm run test:unit && playwright test",
+    "test:unit": "node --test \"test-unit/**/*.test.mjs\"",
     "test:ui": "playwright test --ui",
     "test:headed": "playwright test --headed",
     "serve": "tsx test/support/static-server.ts",
