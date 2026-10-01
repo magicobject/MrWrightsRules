@@ -308,3 +308,9 @@ footer.site a:hover { color: var(--accent); }
 .notfound-card h1 { font-size: 1.8rem; }
 .notfound-card p { color: var(--ink-soft); max-width: 44ch; margin: 14px auto 0; }
 .notfound-card .cta-row { margin-top: 30px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+/* Layout helpers (kept in the stylesheet, not inline, so the CSP can forbid inline styles) */
+.back-link { margin-top: 40px; }
+.ai-cta { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+.cta-title { font-size: 1.5rem; }
+.cta-text { max-width: 56ch; color: var(--ink-soft); margin-top: 10px; }
