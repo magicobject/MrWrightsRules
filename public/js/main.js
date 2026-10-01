@@ -1,4 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
+  var year = document.getElementById('year');
+  if (year) year.textContent = new Date().getFullYear();
+
   var revealEls = document.querySelectorAll('.reveal');
   if ('IntersectionObserver' in window && revealEls.length) {
     var io = new IntersectionObserver(function (entries) {
