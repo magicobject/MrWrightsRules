@@ -311,6 +311,6 @@ footer.site a:hover { color: var(--accent); }
 
 /* Layout helpers (kept in the stylesheet, not inline, so the CSP can forbid inline styles) */
 .back-link { margin-top: 40px; }
-.cta-row { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+.ai-cta { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
 .cta-title { font-size: 1.5rem; }
 .cta-text { max-width: 56ch; color: var(--ink-soft); margin-top: 10px; }

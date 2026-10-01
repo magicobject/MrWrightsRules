@@ -33,7 +33,7 @@ describe('generated pages work under that CSP', () => {
       assert.doesNotMatch(html, /<script(?![^>]*\ssrc=)[^>]*>/i, 'inline <script>');
       assert.doesNotMatch(html, /<style[\s>]/i, '<style> block');
       assert.doesNotMatch(html, /\sstyle\s*=/i, 'style= attribute');
-      assert.doesNotMatch(html, /\son[a-z]+\s*=/i, 'on* event handler');
+      assert.doesNotMatch(html, /<[^>]*\son[a-z]+\s*=/i, 'on* event handler');
     });
   }
 });
