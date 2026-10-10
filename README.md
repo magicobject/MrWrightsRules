@@ -13,7 +13,7 @@ npm test          # run the Playwright suite
 
 ## How the build works
 
-Eleven real pages (`index`, `rules`, the eight `rule-N-*` detail pages, and `ai-era`) plus `404` are assembled from four pieces by [scripts/build.mjs](scripts/build.mjs):
+Thirteen real pages (`index`, `rules`, the eight `rule-N-*` detail pages, `ai-era`, `articles` and the article it lists) plus `404` are assembled from four pieces by [scripts/build.mjs](scripts/build.mjs):
 
 1. **[templates/header.html](templates/header.html)**, **[templates/footer.html](templates/footer.html)**, **[templates/page.html](templates/page.html)** — the shared page shell (nav, footer, `<head>`) with `{{PLACEHOLDER}}` tokens. The 404 page opts out of the header (it isn't a nav destination) but keeps the footer, so the build number and mediawright credit still show there.
 2. **[src/pages/\*.html](src/pages)** — just the content unique to each page. No `<head>`, no header, no footer — the build script wraps that around it.

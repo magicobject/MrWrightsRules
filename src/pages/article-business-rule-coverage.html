@@ -1,0 +1,93 @@
+<main id="main">
+
+  <div class="page-header">
+    <div class="wrap">
+      <div class="kicker">Article</div>
+      <h1>Why is Nobody Talking About Business Rule Coverage?</h1>
+      <p class="lede">How business rule coverage is a game-changer for software development</p>
+    </div>
+  </div>
+
+  <section>
+    <div class="wrap">
+      <div class="prose">
+        <p><em>By Greg Wright &middot; 1 June 2022 &middot; 5 min read &middot; <a href="https://medium.com/@gregwright_1301/why-is-nobody-talking-about-business-rule-coverage-8e56d23c385d" target="_blank" rel="noopener">Originally published on Medium (opens in a new tab)</a></em></p>
+
+        <p>Where to you keep your business rules? Over the years I’ve seen them everywhere: front-end, back-end, domain objects, business-rule layer, database access layer, in stored procedures in the database — everywhere.</p>
+
+        <p>What if we could have one source of truth for business rules and for that source of truth to drive our tests?</p>
+
+        <p>We would only have one place to look for business rules. We would not have to trawl through the code at each layer trying to work out what is actually going on.</p>
+
+        <figure class="diagram">
+          <svg viewBox="0 0 480 372" role="img" aria-labelledby="f1-t f1-d" xmlns="http://www.w3.org/2000/svg"><title id="f1-t">One source of truth for business rules</title><desc id="f1-d">Rules scattered across the front-end, back-end, domain objects and database drift out of sync. Instead, a single set of business rules drives the tests, and the tests verify the application.</desc><defs><marker id="f1-ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="d-head" d="M0 0L10 5L0 10z"/></marker></defs><text class="d-sub" x="240" y="20" text-anchor="middle">Rules scattered across the layers</text><rect class="d-box d-warn" x="8" y="32" width="108" height="44" rx="6"/><text class="d-title" x="62.0" y="59.0" text-anchor="middle">Front-end</text><rect class="d-box d-warn" x="126" y="32" width="108" height="44" rx="6"/><text class="d-title" x="180.0" y="59.0" text-anchor="middle">Back-end</text><rect class="d-box d-warn" x="244" y="32" width="108" height="44" rx="6"/><text class="d-title" x="298.0" y="59.0" text-anchor="middle">Domain</text><rect class="d-box d-warn" x="362" y="32" width="108" height="44" rx="6"/><text class="d-title" x="416.0" y="59.0" text-anchor="middle">Database</text><text class="d-sub" x="240" y="100" text-anchor="middle">The same rule, copied and drifting out of sync</text><line class="d-rule" x1="40" y1="118" x2="440" y2="118"/><text class="d-sub" x="240" y="142" text-anchor="middle">One source of truth driving the tests</text><rect class="d-box d-ok" x="130" y="154" width="220" height="44" rx="6"/><text class="d-title" x="240.0" y="181.0" text-anchor="middle">Business rules</text><line class="d-arrow" x1="240" y1="198" x2="240" y2="232" marker-end="url(#f1-ah)"/><text class="d-sub" x="254" y="220">drive</text><rect class="d-box d-ok" x="130" y="234" width="220" height="44" rx="6"/><text class="d-title" x="240.0" y="261.0" text-anchor="middle">Tests</text><line class="d-arrow" x1="240" y1="278" x2="240" y2="312" marker-end="url(#f1-ah)"/><text class="d-sub" x="254" y="300">verify</text><rect class="d-box d-ok" x="130" y="314" width="220" height="44" rx="6"/><text class="d-title" x="240.0" y="341.0" text-anchor="middle">Application</text></svg>
+          <figcaption>Scattered rules versus one source of truth that drives the tests.</figcaption>
+        </figure>
+
+
+        <p>If we had 100% business rule test coverage, and a green build, we would have huge confidence in the functional correctness of our application. We would be able to refactor or even rewrite our application in a new language and have huge confidence that it was still correct.</p>
+
+        <p>If a business rule changed a BA would update the rule and corresponding tests on a branch, causing a test failure on that branch (because the test has changed but the application has not). A developer could then take over to make the build green again.</p>
+
+        <figure class="diagram">
+          <svg viewBox="0 0 480 334" role="img" aria-labelledby="f2-t f2-d" xmlns="http://www.w3.org/2000/svg"><title id="f2-t">What happens when a business rule changes</title><desc id="f2-d">The BA updates the rule and tests on a branch, which turns the build red. A developer then implements the change to make the build green again.</desc><defs><marker id="f2-ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="d-head" d="M0 0L10 5L0 10z"/></marker></defs><rect class="d-box d-ok" x="60" y="10" width="360" height="56" rx="6"/><text class="d-title" x="240.0" y="35.0" text-anchor="middle">The BA updates the rule and its tests</text><text class="d-sub" x="240.0" y="53.0" text-anchor="middle">on a branch</text><line class="d-arrow" x1="240" y1="66" x2="240" y2="94" marker-end="url(#f2-ah)"/><rect class="d-box d-warn" x="60" y="96" width="360" height="56" rx="6"/><text class="d-title" x="240.0" y="121.0" text-anchor="middle">The build goes red</text><text class="d-sub" x="240.0" y="139.0" text-anchor="middle">the tests changed, the application hasn't</text><line class="d-arrow" x1="240" y1="152" x2="240" y2="180" marker-end="url(#f2-ah)"/><rect class="d-box d-ok" x="60" y="182" width="360" height="56" rx="6"/><text class="d-title" x="240.0" y="207.0" text-anchor="middle">A developer takes over</text><text class="d-sub" x="240.0" y="225.0" text-anchor="middle">and implements the change</text><line class="d-arrow" x1="240" y1="238" x2="240" y2="266" marker-end="url(#f2-ah)"/><rect class="d-box d-ok" x="60" y="268" width="360" height="56" rx="6"/><text class="d-title" x="240.0" y="293.0" text-anchor="middle">The build goes green</text><text class="d-sub" x="240.0" y="311.0" text-anchor="middle">a very good release candidate</text></svg>
+          <figcaption>How a changed business rule flows through the team.</figcaption>
+        </figure>
+
+
+        <p>Focusing on business rules at an early stage of User Story development leads to stories where testing has been considered early in the development process. These tests both elucidate the User Stories and lead to better estimation.</p>
+
+        <p>The business rules can be tested via Feature Specs using Behaviour Driven Development (BDD). Those Feature Specs can be drawn out as the User Story is developed. Then the availability of those specs can be part of the “Definition of Ready” and feed directly into the development process.</p>
+
+        <h2>Practical Learnings</h2>
+        <p>We implemented Business Rule-Based Testing using precisely this process, following a fairly simple recipe:</p>
+        <ul>
+          <li>All tests must be capable of running individually and independently. This allows the tests to be run in parallel. To do this we tagged each test with a unique ID and business rule IDs of the business rules under test. The test runner could take a tag (or set of tags) as input and run only that one test or a set of tests covering a particular business rule.</li>
+          <li>Put the business rules into the feature specs as comments. Each Business Rule can have one or more tests, but the tests should be tagged with the business rule’s number.</li>
+          <li>The tests need to be robust. Flakey tests (often due to poor handling of eventual consistency) cause problems.</li>
+          <li>Keep an eye on long-running tests. Log the time each test takes to run, so you know which your long running tests are and work to split them up or optimise them. (If you could do massively parallel testing, and every test started at the same time, then the length of time your test suite took to run would be the length of your longest test.) Since we are looking for fast feedback we need the tests to be efficient.</li>
+        </ul>
+
+        <p>We developed our User Stories in a number of simple stages:</p>
+        <ul>
+          <li>In the first stage BA and tester would work together on the Business Rules and Feature Specs in Jira, as well as any other supporting information. Feature specs can be developed in Jira or on a git branch such as ‘feature/Jira-1234'</li>
+          <li>‘3-Amigos in’ : The Tester, BA and Developer discuss the requirements</li>
+          <li>Developers would then refine and plan development based on the testing requirements in the Jira tickets. We would then do technical analysis and estimate the work needed to write the implementation of the tests and application code</li>
+          <li>Developers write both the test and application code, ensuring we have a green build</li>
+          <li>‘3-Amigos out’: The developer demonstrates the new functionality to the tester and BA for signoff</li>
+        </ul>
+
+        <figure class="diagram">
+          <svg viewBox="0 0 480 414" role="img" aria-labelledby="f3-t f3-d" xmlns="http://www.w3.org/2000/svg"><title id="f3-t">The stages a User Story goes through</title><desc id="f3-d">Five stages: BA and tester write rules and feature specs, 3-Amigos in, developers refine and estimate, developers write the test and application code until the build is green, then 3-Amigos out for sign-off.</desc><defs><marker id="f3-ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="d-head" d="M0 0L10 5L0 10z"/></marker></defs><rect class="d-box d-ok" x="40" y="10" width="400" height="56" rx="6"/><text class="d-title" x="240.0" y="35.0" text-anchor="middle">1. BA and tester write rules and feature specs</text><text class="d-sub" x="240.0" y="53.0" text-anchor="middle">in Jira or on a feature branch</text><line class="d-arrow" x1="240" y1="66" x2="240" y2="92" marker-end="url(#f3-ah)"/><rect class="d-box d-ok" x="40" y="92" width="400" height="56" rx="6"/><text class="d-title" x="240.0" y="117.0" text-anchor="middle">2. 3-Amigos in</text><text class="d-sub" x="240.0" y="135.0" text-anchor="middle">Tester, BA and Developer discuss the requirements</text><line class="d-arrow" x1="240" y1="148" x2="240" y2="174" marker-end="url(#f3-ah)"/><rect class="d-box d-ok" x="40" y="174" width="400" height="56" rx="6"/><text class="d-title" x="240.0" y="199.0" text-anchor="middle">3. Developers refine, analyse and estimate</text><text class="d-sub" x="240.0" y="217.0" text-anchor="middle">based on the testing requirements</text><line class="d-arrow" x1="240" y1="230" x2="240" y2="256" marker-end="url(#f3-ah)"/><rect class="d-box d-ok" x="40" y="256" width="400" height="56" rx="6"/><text class="d-title" x="240.0" y="281.0" text-anchor="middle">4. Developers write the test and the code</text><text class="d-sub" x="240.0" y="299.0" text-anchor="middle">until the build is green</text><line class="d-arrow" x1="240" y1="312" x2="240" y2="338" marker-end="url(#f3-ah)"/><rect class="d-box d-ok" x="40" y="338" width="400" height="56" rx="6"/><text class="d-title" x="240.0" y="363.0" text-anchor="middle">5. 3-Amigos out</text><text class="d-sub" x="240.0" y="381.0" text-anchor="middle">Developer demonstrates to tester and BA for sign-off</text></svg>
+          <figcaption>The stages a User Story goes through.</figcaption>
+        </figure>
+
+
+        <p>We found that the tests were both great integration tests and acceptance tests. After a while we had to build a system to run the tests in parallel in order to give fast feedback to developers. Focusing on parallelisation sounds expensive, and its certainly not cheap, but it is much cheaper than the cost of manual testers. In practice our manual tester was roughly part time, focusing mainly on developing User Stories and manual acceptance checking. A human can apply common sense in ways that an automated test never could. That one tester was supporting a team of 14 developers. The parallel test solution, though expensive, cost much less than the cost of a manual tester’s salary, and was much more precise and efficient.</p>
+
+        <h2>Do Business Rule Tests Make Unit Tests redundant?</h2>
+        <p>Absolutely not. Unit tests are still extremely important and it is important that they are proper unit tests (not coupled to a database or external service, not coupled to the actual implementation and that they test behaviour) and that they are super-quick to supply the developers with fast feedback. One annoyance is developers waiting for the whole test suite to run when running the unit test suite could provide fast evidence of a problem.</p>
+
+        <p>Business rule tests are part of your test-driven strategy but are not TDD as such. The tests are larger and less iterative than TDD tests. They do however have the advantage that they describe the desired behaviour of the system, are never coupled to implementation.</p>
+
+        <h2>Do Business Rule Tests take a long time to run?</h2>
+        <p>They can do — but you shouldn’t let that get out of control. You are aiming for fast feedback. You need to keep an eye on test times, deal with long running tests and run the tests in parallel.</p>
+
+        <h2>What other advantages did you find?</h2>
+        <p>The process made BAs, testers and developers work closely together. We were much more aware of User Stories under development and put much more thought into the testing requirements. We got better at estimation and we knew that whenever we had a green build we had a very good release candidate. We did continuous delivery into a production-like environment and did some manual verification (applying common-sense) before releasing.</p>
+      </div>
+
+      <nav class="rule-nav" aria-label="Article navigation">
+        <a href="rule-8-business-rule-coverage.html">
+          <span class="label">&larr; Related</span>
+          Rule 8: Test business rules and aim for 100% coverage
+        </a>
+        <a class="next" href="articles.html">
+          <span class="label">Back to</span>
+          All articles &rarr;
+        </a>
+      </nav>
+    </div>
+  </section>
+
+</main>
