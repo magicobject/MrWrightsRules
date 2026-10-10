@@ -51,3 +51,25 @@ test('the GitHub nav link opens the real repo in a new tab, on every page', asyn
     await expect(githubLink).toHaveAttribute('rel', 'noopener');
   }
 });
+
+test('clicking "Articles" opens articles.html, which links to the local copy and the Medium original', async ({ page }) => {
+  await page.goto('/');
+
+  await page.locator('nav.links').getByRole('link', { name: 'Articles', exact: true }).click();
+  await expect(page).toHaveURL(/\/articles\.html$/);
+  await expect(page.locator('nav.links a[aria-current="page"]')).toHaveText('Articles');
+
+  const medium = page.getByRole('link', { name: /Read it on Medium/ });
+  await expect(medium).toHaveAttribute('href', /^https:\/\/medium\.com\/@gregwright_1301\/why-is-nobody-talking-about-business-rule-coverage-/);
+  await expect(medium).toHaveAttribute('target', '_blank');
+  await expect(medium).toHaveAttribute('rel', 'noopener');
+
+  await page.getByRole('link', { name: 'Read it here' }).click();
+  await expect(page).toHaveURL(/\/article-business-rule-coverage\.html$/);
+  await expect(page.locator('nav.links a[aria-current="page"]')).toHaveText('Articles');
+});
+
+test('the article copy ends without the "next article" teaser', async ({ page }) => {
+  await page.goto('/article-business-rule-coverage.html');
+  await expect(page.locator('main')).not.toContainText('In the next article');
+});

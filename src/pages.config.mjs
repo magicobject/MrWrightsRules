@@ -7,6 +7,7 @@ export const NAV = [
   { href: 'index.html', label: 'Home' },
   { href: 'rules.html', label: 'The Rules' },
   { href: 'ai-era.html', label: 'AI Era' },
+  { href: 'articles.html', label: 'Articles' },
   { href: 'https://github.com/magicobject/MrWrightsRules', label: 'GitHub', external: true },
 ];
 
@@ -14,6 +15,7 @@ export const FOOTER_NAV = [
   { href: 'index.html', label: 'Home' },
   { href: 'rules.html', label: 'The Rules' },
   { href: 'ai-era.html', label: 'AI Era' },
+  { href: 'articles.html', label: 'Articles' },
 ];
 
 export const PAGES = [
@@ -92,6 +94,20 @@ export const PAGES = [
     title: 'Applying These Rules in the Age of AI',
     description: "These rules don't get less true when AI writes most of the code — but AI redistributes where each one bites. A practical guide to applying them when the author of your code is a model, not a person.",
     active: 'ai-era.html',
+    header: true,
+  },
+  {
+    slug: 'articles',
+    title: "Articles — Mr Wright's Rules",
+    description: "Longer articles by Greg Wright that expand on Mr Wright's Rules, kept here in full and also published on Medium.",
+    active: 'articles.html',
+    header: true,
+  },
+  {
+    slug: 'article-business-rule-coverage',
+    title: 'Why is Nobody Talking About Business Rule Coverage?',
+    description: 'How business rule coverage is a game-changer for software development: one source of truth for business rules, driving the tests.',
+    active: 'articles.html',
     header: true,
   },
   {

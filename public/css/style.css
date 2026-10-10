@@ -314,3 +314,18 @@ footer.site a:hover { color: var(--accent); }
 .ai-cta { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
 .cta-title { font-size: 1.5rem; }
 .cta-text { max-width: 56ch; color: var(--ink-soft); margin-top: 10px; }
+
+/* Article diagrams (inline SVG; colours reuse the tokens above, so contrast
+   pairs are the ones already checked: ink and ink-soft on bg-alt, accent and
+   warn strokes on bg-alt). */
+.diagram { margin: 2rem auto; max-width: 480px; }
+.diagram svg { display: block; width: 100%; height: auto; }
+.diagram figcaption { margin-top: 0.5rem; text-align: center; color: var(--ink-soft); font-size: 0.875rem; }
+.diagram .d-box { fill: var(--bg-alt); stroke-width: 2; }
+.diagram .d-ok { stroke: var(--accent); }
+.diagram .d-warn { stroke: var(--warn); }
+.diagram .d-title { fill: var(--ink); font-size: 14px; font-weight: 600; }
+.diagram .d-sub { fill: var(--ink-soft); font-size: 13px; }
+.diagram .d-arrow { stroke: var(--ink-soft); stroke-width: 2; }
+.diagram .d-head { fill: var(--ink-soft); }
+.diagram .d-rule { stroke: var(--line); stroke-width: 1; }

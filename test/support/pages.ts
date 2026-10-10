@@ -45,6 +45,12 @@ export const PAGES: SitePage[] = [
     titleContains: 'Applying These Rules in the Age of AI',
     heading: /applying these rules when ai writes most of the code/i,
   },
+  { path: '/articles.html', titleContains: 'Articles', heading: /^articles$/i },
+  {
+    path: '/article-business-rule-coverage.html',
+    titleContains: 'Business Rule Coverage',
+    heading: /why is nobody talking about business rule coverage/i,
+  },
 ];
 
 // The order rule pages should link to each other in, prev/next.
