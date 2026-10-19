@@ -2,6 +2,11 @@
 
 These apply to every change here, not just when explicitly asked for. This is a static site (Cloudflare Workers assets), built the same way as LovingGod, kington-parishes and the other MediaWright sites; where this file is silent, `~/.claude/CLAUDE.md` ("Standing practices") applies.
 
+## Branch and PR workflow
+- Every change gets its own branch (off `main`) and its own PR. Never push a change directly to `main`.
+- Never merge your own PR, and never delete its branch yourself. `.github/workflows/claude-pr-automerge.yml` is the merge actor: it re-runs the test gate and audit against the PR head and merges + deletes the branch only when both are clean.
+- If a PR is held (checks failed, or anything else is wrong), leave it exactly as it is — open, unmerged, branch intact — for Greg to look at. Never force-merge, close or delete a PR to make a problem disappear; fix the underlying issue and push a new commit to the same branch instead.
+
 ## Before any push to origin
 - `git pull origin main` first, and again just before pushing.
 - Run `npm test` and `npm run audit` (`npm audit --audit-level=high`), both clean. Fix real findings; never suppress or skip them.
