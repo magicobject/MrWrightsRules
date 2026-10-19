@@ -1,0 +1,84 @@
+# Every change in this repo gets its own branch and PR (see CLAUDE.md's
+# "Branch and PR workflow") — nobody, including Claude Code, merges their
+# own PR directly any more. This workflow is the "SiteAdmin/Claude API"
+# merge actor: it runs the repo's own test gate and audit against the PR
+# head, and merges + deletes the branch only if both are clean. If either
+# fails, the PR is left open with a comment explaining why — never closed,
+# never force-merged, never deleted. That gives Greg a PR to look at when
+# something's wrong instead of a vanished branch.
+#
+# Only applies to branches under claude/ (where Claude Code's own work
+# lands). Dependabot PRs and anyone else's branches are untouched by this
+# workflow and go through ordinary review.
+#
+# Actions pinned to exact commits, same convention as vuln-watch.yml.
+# Dependabot (.github/dependabot.yml) proposes updates to these pins.
+
+name: Auto-merge Claude Code PRs
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: claude-pr-automerge-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  gate:
+    if: startsWith(github.head_ref, 'claude/')
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          cache: npm
+
+      # Same cache as volunteer-edit.yml: keeps the Playwright browser
+      # download (the slowest, least predictable step) off the critical
+      # path on a cache hit.
+      - uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+
+      - run: npm ci
+
+      - run: npx playwright install --with-deps chromium
+
+      - name: Run this repo's test gate
+        id: tests
+        continue-on-error: true
+        run: npm test
+
+      - name: Run this repo's security audit
+        id: audit
+        continue-on-error: true
+        run: npm run audit
+
+      # A direct merge via gh, not `gh pr merge --auto` — the checks above
+      # are the gate; there's no branch-protection required-status-check to
+      # defer to here, and we want deletion to happen in the same step.
+      - name: Merge and delete the branch if green
+        if: steps.tests.outcome == 'success' && steps.audit.outcome == 'success'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh pr merge --squash --delete-branch "${{ github.event.pull_request.number }}"
+
+      - name: Leave a note if held for review
+        if: steps.tests.outcome != 'success' || steps.audit.outcome != 'success'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh pr comment "${{ github.event.pull_request.number }}" --body "Held for review — tests: ${{ steps.tests.outcome }}, audit: ${{ steps.audit.outcome }}. See this run's logs for the specific reason. Left open rather than merged, closed or deleted."
