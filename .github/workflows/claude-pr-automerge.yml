@@ -89,8 +89,10 @@ jobs:
 
       - name: Work out this repo's auto-merge level
         id: level
+        env:
+          RAW_LEVEL: ${{ vars.AUTO_MERGE_LEVEL }}
         run: |
-          level="${{ vars.AUTO_MERGE_LEVEL }}"
+          level="$RAW_LEVEL"
           case "$level" in
             always|standard|careful|never) ;;
             *) level="never" ;;
@@ -102,10 +104,11 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           HEAD_REF: ${{ github.event.pull_request.head.ref }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
         run: |
           set -euo pipefail
           if [[ "$HEAD_REF" == dependabot/* ]]; then
-            title=$(gh pr view "${{ github.event.pull_request.number }}" --json title -q '.title')
+            title=$(gh pr view "$PR_NUMBER" --json title -q '.title')
             # Dependabot's own title shape: "Bump <name> from <old> to <new>".
             old_major=$(echo "$title" | grep -oP 'from \K[0-9]+' | head -1 || true)
             new_major=$(echo "$title" | grep -oP 'to \K[0-9]+' | head -1 || true)
@@ -115,7 +118,7 @@ jobs:
               tier=complex
             fi
           else
-            labels=$(gh pr view "${{ github.event.pull_request.number }}" --json labels -q '.labels[].name')
+            labels=$(gh pr view "$PR_NUMBER" --json labels -q '.labels[].name')
             if grep -qx 'risk:simple' <<<"$labels"; then
               tier=simple
             elif grep -qx 'risk:gnarly' <<<"$labels"; then
@@ -130,8 +133,9 @@ jobs:
         id: approval
         env:
           GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
         run: |
-          approved=$(gh pr view "${{ github.event.pull_request.number }}" --json reviews \
+          approved=$(gh pr view "$PR_NUMBER" --json reviews \
             -q '[.reviews[] | select(.state == "APPROVED" and .author.login != "github-actions")] | length > 0')
           echo "approved=$approved" >> "$GITHUB_OUTPUT"
 
@@ -141,10 +145,16 @@ jobs:
           LEVEL: ${{ steps.level.outputs.level }}
           TIER: ${{ steps.tier.outputs.tier }}
           APPROVED: ${{ steps.approval.outputs.approved }}
+          TESTS_OUTCOME: ${{ steps.tests.outcome }}
+          AUDIT_OUTCOME: ${{ steps.audit.outcome }}
         run: |
           action=hold
-          gate_ok="${{ steps.tests.outcome == 'success' && steps.audit.outcome == 'success' }}"
-          reason="level: $LEVEL, tier: $TIER, tests: ${{ steps.tests.outcome }}, audit: ${{ steps.audit.outcome }}"
+          if [[ "$TESTS_OUTCOME" == "success" && "$AUDIT_OUTCOME" == "success" ]]; then
+            gate_ok=true
+          else
+            gate_ok=false
+          fi
+          reason="level: $LEVEL, tier: $TIER, tests: $TESTS_OUTCOME, audit: $AUDIT_OUTCOME"
           if [[ "$gate_ok" == "true" ]]; then
             case "$LEVEL" in
               always) action=merge ;;
@@ -173,15 +183,18 @@ jobs:
         if: steps.decide.outputs.action == 'merge'
         env:
           GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
         run: |
-          gh pr merge --squash --delete-branch "${{ github.event.pull_request.number }}"
+          gh pr merge --squash --delete-branch "$PR_NUMBER"
 
       - name: Leave a note if held for review
         if: steps.decide.outputs.action != 'merge' && steps.tier.outputs.tier != 'gnarly'
         env:
           GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          REASON: ${{ steps.decide.outputs.reason }}
         run: |
-          gh pr comment "${{ github.event.pull_request.number }}" --body "Held for review — ${{ steps.decide.outputs.reason }}. See this run's logs for the specific reason. Left open rather than merged, closed or deleted."
+          gh pr comment "$PR_NUMBER" --body "Held for review — $REASON. See this run's logs for the specific reason. Left open rather than merged, closed or deleted."
 
       # Gnarly never auto-merges regardless of gate or level, and always
       # asks Greg by name — a plain PR comment doesn't notify him of his
@@ -191,5 +204,7 @@ jobs:
         if: steps.tier.outputs.tier == 'gnarly'
         env:
           GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          REASON: ${{ steps.decide.outputs.reason }}
         run: |
-          gh pr comment "${{ github.event.pull_request.number }}" --body "@magicobject this PR is tagged gnarly and needs your own look before it merges, whatever the gate says (${{ steps.decide.outputs.reason }}). See the PR description for the overview and why it was referred."
+          gh pr comment "$PR_NUMBER" --body "@magicobject this PR is tagged gnarly and needs your own look before it merges, whatever the gate says ($REASON). See the PR description for the overview and why it was referred."
