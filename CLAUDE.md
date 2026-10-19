@@ -4,8 +4,8 @@ These apply to every change here, not just when explicitly asked for. This is a 
 
 ## Branch and PR workflow
 - Every change gets its own branch (off `main`) and its own PR. Never push a change directly to `main`.
-- Never merge your own PR, and never delete its branch yourself. `.github/workflows/claude-pr-automerge.yml` is the merge actor: it re-runs the test gate and audit against the PR head and merges + deletes the branch only when both are clean.
-- If a PR is held (checks failed, or anything else is wrong), leave it exactly as it is — open, unmerged, branch intact — for Greg to look at. Never force-merge, close or delete a PR to make a problem disappear; fix the underlying issue and push a new commit to the same branch instead.
+- `.github/workflows/claude-pr-automerge.yml` is the merge actor, not Claude directly. It always re-runs the test gate and audit against the PR head first, then merges, holds, or asks Greg depending on this repo's `AUTO_MERGE_LEVEL` (a repo variable; this repo is `standard`) and the PR's risk tier — a label (`risk:simple`, `risk:complex` or `risk:gnarly`) Claude applies when opening the PR, erring upward when unsure. On `standard`: simple merges once green; complex waits for an explicit human approval on top of a green gate; gnarly never auto-merges and gets `@magicobject` mentioned on the PR with an overview of the change and why it was referred. See `mediawright-ops`' `decisions/0016-auto-merge-levels.md` for the full policy.
+- If a PR is held (checks failed, level/tier says so, or anything else is wrong), leave it exactly as it is — open, unmerged, branch intact — for Greg to look at. Never force-merge, close or delete a PR to make a problem disappear; fix the underlying issue and push a new commit to the same branch instead.
 
 ## Before any push to origin
 - `git pull origin main` first, and again just before pushing.
