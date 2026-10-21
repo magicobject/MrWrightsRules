@@ -111,6 +111,14 @@ export const PAGES = [
     header: true,
   },
   {
+    slug: 'updates',
+    title: "Site Updates — Mr Wright's Rules",
+    description: 'Internal build changelog for this site — not linked from anywhere on the site.',
+    active: null,
+    header: true,
+    robots: 'noindex, nofollow',
+  },
+  {
     slug: '404',
     title: "Page Not Found — Mr Wright's Rules",
     description: "This page couldn't be found. Find your way back to the rules from the home page.",

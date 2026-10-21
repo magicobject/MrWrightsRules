@@ -1,0 +1,23 @@
+<main id="main">
+
+  <div class="page-header">
+    <div class="wrap">
+      <div class="kicker">Build history</div>
+      <h1>Site updates</h1>
+      <p class="lede">An internal changelog: every build number and what changed. This page isn't linked from anywhere else on the site.</p>
+      <p class="build-number">Current build: {{BUILD_NUMBER}}</p>
+    </div>
+  </div>
+
+  <section>
+    <div class="wrap">
+      <ul class="changelog">
+        <li>
+          <div class="changelog-meta"><span class="changelog-build">2026.10.21.001</span><span class="changelog-author">Greg Wright</span><span class="changelog-date">21 October 2026</span></div>
+          <p>Behind the scenes, no change to what visitors see: the build number no longer appears in every page's footer, and the stylesheet/script links no longer carry it as their cache-busting <code>?v=</code> value. Every page used to change on every single commit purely because that shared number was stamped into it, even when nothing on the page itself had moved. The build number now only appears on this page, and <code>?v=</code> is a hash of the actual file's content, so a page's HTML only changes when something it really loads has changed.</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+</main>

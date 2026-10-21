@@ -5,6 +5,7 @@
 // public/*.html — Cloudflare serves that directory as-is.
 
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
+import { createHash } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { NAV, FOOTER_NAV, PAGES } from '../src/pages.config.mjs';
@@ -12,6 +13,29 @@ import { SITE } from '../src/site.config.mjs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const read = (path) => readFileSync(join(root, path), 'utf8');
+
+// Cache-busting for every same-origin stylesheet/script a page loads:
+// `<link href="/css/style.css">` becomes `<link href="/css/style.css?v=<hash>">`,
+// where the hash is taken from that file's own content. A page's HTML
+// therefore only changes when something it actually loads has changed —
+// unlike the old ?v=<build number>, which rewrote every page on every
+// commit whether or not the CSS/JS had moved. Runs over the finished HTML,
+// so a reference to a file that doesn't exist fails the build instead of
+// silently shipping a broken link.
+const assetHashes = new Map();
+function assetHash(publicPath) {
+  if (!assetHashes.has(publicPath)) {
+    const file = join(root, 'public', publicPath);
+    if (!existsSync(file)) throw new Error(`build: page references ${publicPath}, which doesn't exist in public/`);
+    assetHashes.set(publicPath, createHash('sha256').update(readFileSync(file)).digest('hex').slice(0, 10));
+  }
+  return assetHashes.get(publicPath);
+}
+
+function versionAssetUrls(html) {
+  return html.replace(/<(link|script)\b[^>]*>/g, (tag) =>
+    tag.replace(/\b(href|src)="(\/(?!\/)[^"?#]+)"/, (_, attr, path) => `${attr}="${path}?v=${assetHash(path)}"`));
+}
 
 const pageTemplate = read('templates/page.html');
 const headerTemplate = read('templates/header.html').trimEnd();
@@ -91,6 +115,7 @@ for (const page of PAGES) {
     .replace('{{FOOTER}}', pageFooter);
 
   html = replaceTokens(html, tokens);
+  html = versionAssetUrls(html);
 
   writeFileSync(join(root, 'public', `${page.slug}.html`), html);
   console.log(`built public/${page.slug}.html`);
