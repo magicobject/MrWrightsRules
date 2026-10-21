@@ -4,12 +4,12 @@ import { PAGES } from './support/pages';
 const ALL_PATHS = [...PAGES.map((p) => p.path), '/404.html'];
 
 for (const path of ALL_PATHS) {
-  test(`${path} shows a build number in the footer`, async ({ page }) => {
+  // The build number only ever appears on /updates.html (see test/updates.spec.ts)
+  // — stamping it into every page's footer used to rewrite every page's HTML
+  // on every single commit, whether or not that page had actually changed.
+  test(`${path} does not show a build number`, async ({ page }) => {
     await page.goto(path);
-
-    const buildNumber = page.locator('.fine .build-number');
-    await expect(buildNumber).toBeVisible();
-    await expect(buildNumber).toHaveText(/^Build \d{4}\.\d{2}\.\d{2}\.\d{3}$/);
+    await expect(page.locator('.build-number')).toHaveCount(0);
   });
 
   test(`${path} credits mediawright.uk in the footer`, async ({ page }) => {

@@ -29,4 +29,6 @@ These apply to every change here, not just when explicitly asked for. This is a 
 - The pre-commit hook bumps the build number and regenerates `public/`. Never do either by hand.
 
 ## Build numbers and changelog
-Every commit gets a build tag `build-<date>.<NNN>` matching the footer's "Build ..." text. After committing, tag it and push the tag. This site has no `/updates` page yet, so record each change in the commit message until one exists.
+Every commit gets a build tag `build-<date>.<NNN>`. The build number itself appears in exactly one place on the site: `/updates.html` (unlinked, `noindex, nofollow`), as `{{BUILD_NUMBER}}` in `src/pages/updates.html` — no other page carries it, so a commit's regenerated HTML only touches the pages it actually changed. After committing, add a changelog entry at the top of that page's list (newest first) describing the change in plain English, tag the commit to match, and push the tag.
+
+Asset cache-busting (`/css/style.css`, `/js/main.js`) uses a content hash of the actual file, added automatically by `versionAssetUrls` in `scripts/build.mjs` — never hand-write a `?v=` on a `<link>`/`<script>` tag; the build adds it, and fails if the referenced file doesn't exist.
